@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Audio Editor</title>
+</head>
+<body>
+    
+    <main>
+        <div id="waveform"></div>
+        <input type="file" id="add">
+    
+        <button id="playbtn">Play</button>
+        <button id="mutebtn">Mute</button>
+        <button id="stopbtn">Stop</button>
+        <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume">
+    </main>
+
+    <small></small>
+
+
+
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/wavesurfer.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script> -->
+    <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
