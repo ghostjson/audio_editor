@@ -7,8 +7,8 @@ let isLoad = false; // song load status
 // Create Wavesurfer object
 let song = WaveSurfer.create({
     container: '#waveform',
-    waveColor: '#1e90ff',
-    progressColor: '#70a1ff',
+    waveColor: '#FF6600',
+    progressColor: '#FF7F00',
     audioRate: 1,
     autoCenter: true,
     splitChannels: false
@@ -17,7 +17,7 @@ let song = WaveSurfer.create({
 
 // Window loaded
 function load(){
-    song.load('test/1.mp3');
+    song.load('bensound-dance.mp3');
 
     // contains all audio editor components
     comp = new Component(song);
@@ -41,9 +41,6 @@ function songReady(){
     comp.volumeSlider('#volume'); 
     comp.muteButton('#mutebtn');
     comp.stopButton('#stopbtn');
-
-    // cpnsole.log(song);
-
 }
 
 
