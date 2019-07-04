@@ -1,53 +1,41 @@
-import {Component} from './components.js';
+// $('input[type=file]').change(function() { 
+//     // select the form and submit
+//     $('form').submit(); 
+// });
 
-const updation_rate = 30; // Frame updation rate
-let comp;
-let isLoad = false; // song load status
 
-// Create Wavesurfer object
-let song = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: '#FF6600',
-    progressColor: '#FF7F00',
-    audioRate: 1,
-    autoCenter: true,
-    splitChannels: false
+$(document).ready(function(){
+
+	$('input[type=file]').change(function(){
+
+		$(this).simpleUpload("upload.php", {
+
+			start: function(file){
+				//upload started
+				$('#filename').html(file.name);
+				$('#progress').html("");
+				$('#progressBar').width(0);
+			},
+
+			progress: function(progress){
+				//received progress
+				$('#progress').html("Progress: " + Math.round(progress) + "%");
+				$('#progressBar').width(progress + "%");
+			},
+
+			success: function(data){
+				//upload successful
+				$('#progress').html("Success!<br>Data: " + JSON.stringify(data));
+				song.load(data);
+			},
+
+			error: function(error){
+				//upload failed
+				$('#progress').html("Failure!<br>" + error.name + ": " + error.message);
+			}
+
+		});
+
+	});
+
 });
-
-
-// Window loaded
-function load(){
-    song.load('bensound-dance.mp3');
-
-    // contains all audio editor components
-    comp = new Component(song);
-
-    
-}
-
-// update function
-function update(){
-    
-    if(isLoad){
-        comp.displaySongTime('small');   
-    }
-    
-}
-
-
-// on song is ready to play
-function songReady(){ 
-    comp.playButton('#playbtn');
-    comp.volumeSlider('#volume'); 
-    comp.muteButton('#mutebtn');
-    comp.stopButton('#stopbtn');
-}
-
-
-
-// Enviroment setup
-window.setInterval(()=>update(), 1000/updation_rate);
-
-window.onload = () => load();
-
-song.on('ready', ()=> {songReady();isLoad = true;});

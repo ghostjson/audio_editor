@@ -1,4 +1,4 @@
-export class Component{
+class Component{
     constructor(song, volume=0.5){
         this.song = song;
         this.song.setVolume(volume);

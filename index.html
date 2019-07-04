@@ -11,12 +11,21 @@
     
     <main>
         <div id="waveform"></div>
-        <input type="file" id="add">
-    
+        
         <button id="playbtn">Play</button>
         <button id="mutebtn">Mute</button>
         <button id="stopbtn">Stop</button>
         <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume">
+        
+        <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
+            <!-- <input type="file" id="add" name="song" accept="audio/*"> -->
+        <!-- </form> -->
+
+        <div id="filename"></div>
+        <div id="progress"></div>
+        <div id="progressBar"></div>
+
+        <input type="file" name="song" accept="audio/*" enctype="multipart/form-data"/>
     </main>
 
     <small></small>
@@ -25,7 +34,11 @@
 
     <script src="scripts/jquery-3.3.1.min.js"></script>
     <script src="scripts/wavesurfer.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.2.3/plugin/wavesurfer.regions.min.js"></script> -->
-    <script type="module" src="scripts/main.js"></script>
+    <script src="scripts/simpleUpload.min.js"></script>
+
+    <script src="scripts/components.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
