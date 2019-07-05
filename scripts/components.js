@@ -49,6 +49,8 @@ class Component{
         });
     }
 
+    
+
     // display current song time in the given container
     displaySongTime(container){
         let crt_time = this.song.getCurrentTime();

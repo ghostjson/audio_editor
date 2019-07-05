@@ -1,6 +1,14 @@
 <?php
 
-    $file_store_path = 'temp/';
+
+    session_start();
+
+    if(!isset($_SESSION['no_of_songs'])){
+        $_SESSION['no_of_songs'] = 0;
+    }
+    
+
+    $file_store_path = 'temp/w1/';
 
     // phpinfo();
 
@@ -11,8 +19,10 @@
         
         // echo $file;
         
-        move_uploaded_file($_FILES["song"]["tmp_name"],$file_store_path . $_FILES["song"]["name"]);
-        echo $file_store_path . $_FILES["song"]["name"];
+        $_SESSION['no_of_songs'] += 1;
+
+        move_uploaded_file($file,$file_store_path. $_SESSION['no_of_songs'] . $_FILES["song"]["name"]);
+        echo $file_store_path . $_SESSION['no_of_songs']. $_FILES["song"]["name"] ;
     }else{
         echo 'Failed';
     }

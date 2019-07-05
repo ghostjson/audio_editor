@@ -26,7 +26,11 @@ $(document).ready(function(){
 			success: function(data){
 				//upload successful
 				$('#progress').html("Success!<br>Data: " + JSON.stringify(data));
-				song.load(data);
+				
+				addSong(song,no_songs);
+				song[no_songs].load(data);
+				no_songs++;
+				
 			},
 
 			error: function(error){

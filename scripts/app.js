@@ -1,33 +1,67 @@
 const updation_rate = 30; // Frame updation rate
-let comp;
+let comp = [];
 let isLoad = false; // song load status
 
 // Create Wavesurfer object
-let song = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: '#FF6600',
-    progressColor: '#FF7F00',
-    audioRate: 1,
-    autoCenter: true,
-    splitChannels: false
-});
 
+let no_songs = 0;
+
+song = [];
+
+function addSong(song,no_songs){
+    song.push(WaveSurfer.create({
+        container: '#waveform'+no_songs,
+        waveColor: '#FF6600',
+        progressColor: '#FF7F00',
+        audioRate: 1,
+        autoCenter: true,
+        splitChannels: false
+    }));
+
+    comp.push(new Component(song[no_songs]));
+
+    comp[no_songs].playButton('#playbtn'+no_songs);
+    comp[no_songs].volumeSlider('#volume'+no_songs); 
+    comp[no_songs].muteButton('#mutebtn'+no_songs);
+    comp[no_songs].stopButton('#stopbtn'+no_songs);
+
+    $('#song'+no_songs).show();
+}
+
+
+// let song = [ WaveSurfer.create({
+//     container: '#waveform2',
+//     waveColor: '#FF6600',
+//     progressColor: '#FF7F00',
+//     audioRate: 1,
+//     autoCenter: true,
+//     splitChannels: false
+// }), WaveSurfer.create({
+//     container: '#waveform3',
+//     waveColor: '#FF6600',
+//     progressColor: '#FF7F00',
+//     audioRate: 1,
+//     autoCenter: true,
+//     splitChannels: false
+// })]; 
 
 // Window loaded
 function load(){
     // song.load('bensound-dance.mp3');
 
     // contains all audio editor components
-    comp = new Component(song);
-
-    
+    // comp = [new Component(song[0]),new Component(song[1]),new Component(song[2])];
 }
+
+
 
 // update function
 function update(){
     
     if(isLoad){
-        comp.displaySongTime('small');   
+        for(let i=0;i<=no_songs;i++){
+            comp[i].displaySongTime('#time'+i);
+        }
     }
     
 }
@@ -35,10 +69,14 @@ function update(){
 
 // on song is ready to play
 function songReady(){ 
-    comp.playButton('#playbtn');
-    comp.volumeSlider('#volume'); 
-    comp.muteButton('#mutebtn');
-    comp.stopButton('#stopbtn');
+
+    // for(let i=0;i<no_songs;i++){
+    //     comp[i].playButton('#playbtn'+i);
+    //     comp[i].volumeSlider('#volume'+i); 
+    //     comp[i].muteButton('#mutebtn'+i);
+    //     comp[i].stopButton('#stopbtn'+i);
+    //     comp[i].removeButton('#removebtn'+i);
+    // }
 }
 
 
@@ -48,4 +86,4 @@ window.setInterval(()=>update(), 1000/updation_rate);
 
 window.onload = () => load();
 
-song.on('ready', ()=> {songReady();isLoad = true;});
+// song[0].on('ready', ()=> {songReady();isLoad = true;});

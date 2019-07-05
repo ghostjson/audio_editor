@@ -4,31 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/main.css">
     <title>Audio Editor</title>
 </head>
 <body>
     
     <main>
-        <div id="waveform"></div>
+        <div id="song0">
+                <div id="waveform0"></div>
+                <button id="playbtn0">Play</button>
+                <button id="mutebtn0">Mute</button>
+                <button id="stopbtn0">Stop</button>
+                <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume0">
+                
+                <div id="time0"></div>
+            </div>
         
-        <button id="playbtn">Play</button>
-        <button id="mutebtn">Mute</button>
-        <button id="stopbtn">Stop</button>
-        <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume">
+        <div id="song1">
+            <div id="waveform1"></div>
+            <button id="playbtn1">Play</button>
+            <button id="mutebtn1">Mute</button>
+            <button id="stopbtn1">Stop</button>
+            <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume1">        
+            
+            <div id="time1"></div>
+        </div>
+        
+        <div id="song2">
+            <div id="waveform2"></div>
+            <button id="playbtn2">Play</button>
+            <button id="mutebtn2">Mute</button>
+            <button id="stopbtn2">Stop</button>
+            <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume2">    
+            
+            <div id="time2"></div>
+        </div>
+        
+        
         
         <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
-            <!-- <input type="file" id="add" name="song" accept="audio/*"> -->
+            <!-- <input type="file" id="add" name="song" accept="audio/*"> -->  
         <!-- </form> -->
 
         <div id="filename"></div>
         <div id="progress"></div>
         <div id="progressBar"></div>
 
-        <input type="file" name="song" accept="audio/*" enctype="multipart/form-data"/>
-    </main>
+            <br><br>
 
-    <small></small>
+        <label for="add" class="addbtn">Add +</label>
+        <input type="file" id="add" name="song" accept="audio/*" enctype="multipart/form-data" style="display:none;"/>
+        
+        <button class="playbtn-master">play</button>
+    
+    </main>
 
 
 
