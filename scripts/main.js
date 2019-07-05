@@ -29,7 +29,10 @@ $(document).ready(function(){
 				
 				addSong(song,no_songs);
 				song[no_songs].load(data);
+				
 				no_songs++;
+
+				
 				
 			},
 
@@ -41,5 +44,16 @@ $(document).ready(function(){
 		});
 
 	});
+
+	// Master controls
+	$('#playbtn-master').click(function(){
+		for(let i=0;i<no_songs;i++){
+			song[i].stop();
+			song[i].play();
+		}
+		
+	});
+	
+
 
 });

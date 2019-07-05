@@ -29,21 +29,7 @@ function addSong(song,no_songs){
 }
 
 
-// let song = [ WaveSurfer.create({
-//     container: '#waveform2',
-//     waveColor: '#FF6600',
-//     progressColor: '#FF7F00',
-//     audioRate: 1,
-//     autoCenter: true,
-//     splitChannels: false
-// }), WaveSurfer.create({
-//     container: '#waveform3',
-//     waveColor: '#FF6600',
-//     progressColor: '#FF7F00',
-//     audioRate: 1,
-//     autoCenter: true,
-//     splitChannels: false
-// })]; 
+
 
 // Window loaded
 function load(){
