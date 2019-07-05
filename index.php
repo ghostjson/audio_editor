@@ -11,17 +11,20 @@
 <body>
     
     <main>
-        <div id="song0">
-                <div id="waveform0"></div>
-                <button id="playbtn0">Play</button>
-                <button id="mutebtn0">Mute</button>
-                <button id="stopbtn0">Stop</button>
-                <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume0">
+
+        <?php for($i=0;$i<3;$i++): ?>
+
+            <div id="song<?=$i?>">
+                <div id="waveform<?=$i?>"></div>
+                <button id="playbtn<?=$i?>">Play</button>
+                <button id="mutebtn<?=$i?>">Mute</button>
+                <button id="stopbtn<?=$i?>">Stop</button>
+                <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume<?=$i?>">
                 
-                <div id="time0"></div>
+                <div id="time<?=$i?>"></div>
             </div>
-        
-        <div id="song1">
+        <?php endfor; ?>
+        <!-- <div id="song1">
             <div id="waveform1"></div>
             <button id="playbtn1">Play</button>
             <button id="mutebtn1">Mute</button>
@@ -39,7 +42,7 @@
             <input type="range" min="0" max="1" value="0.5" step="0.025" id="volume2">    
             
             <div id="time2"></div>
-        </div>
+        </div> -->
         
         
         
@@ -67,6 +70,8 @@
     <script src="scripts/simpleUpload.min.js"></script>
 
     <script src="scripts/components.js"></script>
+
+    <script src="scirpts/crop.js"></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/main.js"></script>
