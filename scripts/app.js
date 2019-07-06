@@ -40,14 +40,20 @@ function addSong(song,no_songs){
         if(song[no_songs].getDuration() > large){
             large = song[no_songs].getDuration();
         }
-        
+   
+    if(no_songs == 0){
+        large = song[no_songs].getDuration();
+    }
         // console.log(song[0].getDuration());
     comp[no_songs].cropButton('#cropbtn'+no_songs, '#pos1'+no_songs,'#pos2'+no_songs, large);
+    comp[no_songs].startPos('#btn', '#startpos'+no_songs, large);
 
-    comp[no_songs].startPos('#startpos'+no_songs, large);
-    });
+    // comp[no_songs].startPos('#startpos'+no_songs, large);
+});
 }
 
+$('#btn').click(()=>{
+});
 
 
 

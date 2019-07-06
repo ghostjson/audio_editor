@@ -1,7 +1,10 @@
 class Component{
     constructor(song, volume=0.5){
         this.song = song;
+        this.original = song;
         this.song.setVolume(volume);
+        this.song.frontSpace = 0
+        this.song.backSpace = 0
         // this.playbutton = '#playbtn';
     }
     // set play button
@@ -61,28 +64,53 @@ class Component{
     }
 
     // Start position
-    startPos(container, large){
+    startPos(container,value, large){
 
-        $(container).keyup(()=>{
+        $(container).click(()=>{
 
-            
+            let pos = $(value).val();
 
-            let songBuff = this.song.backend.buffer
-            let pos = $(container).val();
-            let sampleRate = songBuff.sampleRate
-            let frameCount = pos * sampleRate
-            let channels = songBuff.numberOfChannels
-            let buffer = new AudioContext().createBuffer(channels, frameCount, sampleRate)
-            this.song.loadDecodedBuffer(appendBuffer(buffer, songBuff.buffer));
-            let buffer1 = new AudioContext().createBuffer(channels,  * sampleRate, sampleRate);
-            this.song.loadDecodedBuffer(appendBuffer(songBuff.buffer, buffer1))
+            this.setFrontSpace(pos);
+            this.setBackSpace(large - (pos+this.song.getDuration()));
         
         });
     
     }
-    
+
+
+    // set front space
     setFrontSpace(space){
-        
+
+            
+            let crt_space = space - this.song.frontSpace
+            
+            
+            let songBuff = this.original.backend.buffer
+            let sampleRate = songBuff.sampleRate
+            let frameCount = Math.round(crt_space * sampleRate)
+            let channels = songBuff.numberOfChannels
+            let buffer = new AudioContext().createBuffer(channels, frameCount, sampleRate)
+            this.song.empty()
+            this.song.loadDecodedBuffer(appendBuffer(buffer, songBuff));
+            
+            this.song.frontSpace = space
+    }
+
+    
+    //set end space
+    setBackSpace(space){
+
+        this.song.backSpace += space
+
+        if(!space){
+            let songBuff = this.original.backend.buffer
+            let sampleRate = songBuff.sampleRate
+            let frameCount = Math.round(space * sampleRate)
+            let channels = songBuff.numberOfChannels
+            let buffer = new AudioContext().createBuffer(channels, frameCount, sampleRate)
+            this.song.empty()
+            this.song.loadDecodedBuffer(appendBuffer(songBuff, buffer));
+        }
     }
 
     // display current song time in the given container
