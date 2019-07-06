@@ -49,7 +49,41 @@ class Component{
         });
     }
 
+    // Crop button
+    cropButton(container, pos1,pos2,large){
+        console.log(large);
+        $(container).click(()=>{
+            pos1 = $(pos1).val();
+            pos2 = $(pos2).val();
+            let c = new Crop(this.song);
+            c.crop(pos1,pos2,large);
+        });
+    }
+
+    // Start position
+    startPos(container, large){
+
+        $(container).keyup(()=>{
+
+            
+
+            let songBuff = this.song.backend.buffer
+            let pos = $(container).val();
+            let sampleRate = songBuff.sampleRate
+            let frameCount = pos * sampleRate
+            let channels = songBuff.numberOfChannels
+            let buffer = new AudioContext().createBuffer(channels, frameCount, sampleRate)
+            this.song.loadDecodedBuffer(appendBuffer(buffer, songBuff.buffer));
+            let buffer1 = new AudioContext().createBuffer(channels,  * sampleRate, sampleRate);
+            this.song.loadDecodedBuffer(appendBuffer(songBuff.buffer, buffer1))
+        
+        });
     
+    }
+    
+    setFrontSpace(space){
+        
+    }
 
     // display current song time in the given container
     displaySongTime(container){
@@ -61,3 +95,69 @@ class Component{
     }
 }
 
+
+
+
+
+
+
+// Crop class
+class Crop{
+    constructor(song){
+        // var au  dioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // var myArrayBuffer = audioCtx.createBuffer(2, audioCtx.sampleRate * 10, audioCtx.sampleRate);
+        this.song = song;
+    }
+
+    crop(c1,c2,large){
+       
+        
+        // this.selectRegion(c1,c2);
+        
+        // create a new buffer to hold the new clip
+        let buffer = this.createBuffer(this.song.backend.buffer, c2-c1)
+        // copy
+        this.copyBuffer(this.song.backend.buffer, c1, c2, buffer, 0)
+        
+        // load the new buffer
+        this.song.empty()
+        let buffer1 = this.createBuffer(this.song.backend.buffer, large-buffer.duration);
+        this.song.loadDecodedBuffer(appendBuffer(buffer, buffer1));
+    }
+
+    
+
+
+    createBuffer(originalBuffer, duration) {
+        let sampleRate = originalBuffer.sampleRate
+        let frameCount = duration * sampleRate
+        let channels = originalBuffer.numberOfChannels 
+        return new AudioContext().createBuffer(channels, frameCount, sampleRate)
+        }
+        
+    copyBuffer(fromBuffer, fromStart, fromEnd, toBuffer, toStart) {
+        let sampleRate = fromBuffer.sampleRate
+        let frameCount = (fromEnd - fromStart) * sampleRate
+        for (let i = 0; i < fromBuffer.numberOfChannels; i++) {
+            let fromChanData = fromBuffer.getChannelData(i)
+            let toChanData = toBuffer.getChannelData(i)
+            for (let j = 0, f = Math.round(fromStart*sampleRate), t = Math.round(toStart*sampleRate); j < frameCount; j++, f++, t++) {
+                toChanData[t] = fromChanData[f]
+            }
+        }
+    }
+}
+function appendBuffer(buffer1, buffer2) {
+    var numberOfChannels = Math.min( buffer1.numberOfChannels, buffer2.numberOfChannels );
+    var tmp = new AudioContext().createBuffer( numberOfChannels, (buffer1.length + buffer2.length), buffer1.sampleRate );
+    for (var i=0; i<numberOfChannels; i++) {
+      var channel = tmp.getChannelData(i);
+      channel.set( buffer1.getChannelData(i), 0);
+      channel.set( buffer2.getChannelData(i), buffer1.length);
+    }
+return tmp;
+}
+
+function putSong(buffer1, pos, length){
+    
+}
