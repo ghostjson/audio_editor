@@ -1,10 +1,91 @@
-.addbtn{
-    padding: 12px;
-    background: orange;
-    font-size: 1em;
+main{
+    /* background: rgb(247, 245, 245); */
+    text-align: center;
+    width: 75%;
+    margin: 0 auto;
     margin-top: 20px;
+}
+
+main .song button{
+    background: #0d747700;
+    border: none;
+    padding: 12px;
+    font-size: 1.5em;
+    color: #0d7377;
 }
 
 #song0, #song1, #song2{
     display: none;
 }
+
+#merge-master, #playbtn-master, .addbtn{
+    padding: 12px;
+    background: #0d7377;
+    font-size: 1em;
+    margin-top: 20px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    transition: background 0.5s;
+}
+
+#merge-master:hover, #playbtn-master:hover, .addbtn:hover{
+    background: #3b8588;
+}
+
+
+.slider {
+    -webkit-appearance: none;  
+    appearance: none;
+    height: 7px;
+    background: #d3d3d3; 
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
+    transition: opacity .2s;
+    margin-bottom: 12px;
+    position: relative;
+    bottom: 5px;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px; 
+    height: 15px;
+    background: #0d7377;
+    border-radius: 100%; 
+    cursor: pointer; 
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px; 
+    height: 25px;
+    /* background: #4CAF50;  */
+    cursor: pointer; 
+  }
+
+  main .song input{
+      padding: 5px;
+      box-sizing: border-box;
+
+  }
+
+  .time{
+    font-size: 1em;
+    border: none;
+    background: #0d7377;
+    font-weight: 600;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 3px;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }

@@ -7,7 +7,8 @@ let isLoad = false; // song load status
 let no_songs = 0;
 let large = 0;
 song = [];
-
+$('#playbtn-master').hide();
+$('#merge-master').hide();
 
 
 // song added
@@ -21,6 +22,7 @@ function addSong(song,no_songs){
         autoCenter: true,
         splitChannels: false
     }));
+
 
     comp.push(new Component(song[no_songs])); // add new song's components
 
@@ -41,19 +43,25 @@ function addSong(song,no_songs){
             large = song[no_songs].getDuration();
         }
    
-    if(no_songs == 0){
-        large = song[no_songs].getDuration();
-    }
+    song[no_songs].on('ready', ()=>{
+        large < song[no_songs].getDuration() ? large = song[no_songs].getDuration() : 0;
+    });
         // console.log(song[0].getDuration());
     comp[no_songs].cropButton('#cropbtn'+no_songs, '#pos1'+no_songs,'#pos2'+no_songs, large);
-    comp[no_songs].startPos('#btn', '#startpos'+no_songs, large);
+    comp[no_songs].startPos('#startposbtn'+no_songs, '#startpos'+no_songs, large);
 
     // comp[no_songs].startPos('#startpos'+no_songs, large);
+
+    // put common UI 
+    
+    $('#playbtn-master').show();
+    $('#merge-master').show();
+    
+
+
 });
 }
 
-$('#btn').click(()=>{
-});
 
 
 
@@ -64,6 +72,43 @@ function load(){
     
     // contains all audio editor components
     // comp = [new Component(song[0]),new Component(song[1]),new Component(song[2])];
+
+    // Master controls
+	$('#playbtn-master').click(function(){
+		for(let i=0;i<no_songs;i++){
+			song[i].stop();
+			song[i].play();
+		}
+		
+    });
+    
+    $('#merge-master').click(function(){
+        let audio = new Crunker();
+
+        
+        let response;
+
+        let url;
+        audio
+            .fetchAudio("../temp/1.mp3", "../temp/newpath.mp3")
+            .then(buffers => audio.mergeAudio(buffers))
+            .then(merged => audio.export(merged, "audio/mp3"))
+            .then(output => {
+                // => {blob, element, url}
+                audio.download(output.blob);
+                let buffer = new Buffer(blob, "binary");
+            })
+           .catch(error => {
+                console.log(error);
+            });
+
+    });
+
+}
+
+// Ready player
+function songReady(){
+    console.log('hello');
 }
 
 
@@ -80,23 +125,9 @@ function update(){
 }
 
 
-// on song is ready to play
-function songReady(){ 
-
-    // for(let i=0;i<no_songs;i++){
-    //     comp[i].playButton('#playbtn'+i);
-    //     comp[i].volumeSlider('#volume'+i); 
-    //     comp[i].muteButton('#mutebtn'+i);
-    //     comp[i].stopButton('#stopbtn'+i);
-    //     comp[i].removeButton('#removebtn'+i);
-    // }
-}
-
-
-
 // Enviroment setup
 window.setInterval(()=>update(), 1000/updation_rate);
 
 window.onload = () => load();
 
-// song[0].on('ready', ()=> {songReady();isLoad = true;});
+// song[0].on('ready', ()=> {songReady();});

@@ -44,15 +44,6 @@ $(document).ready(function(){
 		});
 
 	});
-
-	// Master controls
-	$('#playbtn-master').click(function(){
-		for(let i=0;i<no_songs;i++){
-			song[i].stop();
-			song[i].play();
-		}
-		
-	});
 	
 
 
