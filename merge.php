@@ -2,7 +2,7 @@
 
 print_r($_POST);
 
-echo 'hello';
+echo 'hey';
 
 
 ?>
